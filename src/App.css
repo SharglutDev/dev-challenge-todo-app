@@ -7,6 +7,7 @@
   width: 608px;
   margin: 0 auto;
   text-align: center;
+  font-family: Montserrat, sans-serif;
 }
 
 .header {
@@ -17,18 +18,29 @@
 }
 
 .filter-list {
+  position: relative;
   display: flex;
   justify-content: space-evenly;
   gap: 20px;
   border-bottom: solid 1px #bdbdbd;
   margin: 0 auto;
-  font-family: Montserrat, sans-serif;
   font-weight: 600;
   font-size: 14px;
 }
 
+.filter-list::after {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 20px;
+  height: 4px;
+  background-color: #2f80ed;
+  border-radius: 4px 4px 0 0;
+}
+
 .filter-item {
   padding: 15px;
+  cursor: pointer;
 }
 
 .input-container {
@@ -36,6 +48,7 @@
   display: flex;
   justify-content: space-between;
   gap: 25px;
+  font-size: 14px;
 }
 
 .input-field {
@@ -51,4 +64,35 @@
   color: #ffffff;
   background-color: #2f80ed;
   border: none;
+}
+
+.todos-container {
+  margin-top: 32px;
+}
+
+.todos-list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 28px;
+}
+
+.todo-item {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.todo-input {
+  width: 24px;
+  height: 24px;
+}
+
+.todo-description {
+  font-weight: 500;
+  font-size: 18px;
+}
+
+.todo-done {
+  text-decoration: line-through;
 }
