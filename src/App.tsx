@@ -9,15 +9,12 @@ import Todos from "./Todos";
 function App() {
   const [todos, setTodos] = useState<string[]>([]);
   const [task, setTask] = useState<string>("");
-  const [classActive, toggleClassActive] = useState<boolean>(true);
+  const [classActive, setClassActive] = useState<string>("All");
 
   return (
     <div className="container">
       <Header />
-      <Filters
-        classActive={classActive}
-        toggleClassActive={toggleClassActive}
-      />
+      <Filters classActive={classActive} setClassActive={setClassActive} />
       <Input task={task} setTask={setTask} todos={todos} setTodos={setTodos} />
       <Todos todos={todos} />
     </div>

@@ -16,7 +16,7 @@ export default function Input({
   };
 
   const handleClick = () => {
-    setTodos([...todos, task]);
+    task.length !== 0 && setTodos([...todos, task]);
   };
 
   return (

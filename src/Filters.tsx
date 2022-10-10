@@ -1,35 +1,34 @@
-import React, { EventHandler } from "react";
+import React from "react";
 import "./App.css";
 
 export default function Filters({
   classActive,
-  toggleClassActive,
+  setClassActive,
 }: {
-  classActive: boolean;
-  toggleClassActive: React.Dispatch<React.SetStateAction<boolean>>;
+  classActive: string;
+  setClassActive: React.Dispatch<React.SetStateAction<string>>;
 }) {
   const handleClick = (e: React.MouseEvent<HTMLElement>) => {
-    e.currentTarget.classList.add("active");
-    toggleClassActive(!classActive);
+    setClassActive(e.currentTarget.innerHTML);
   };
 
   return (
     <div>
       <ul className="filter-list">
         <li
-          className={`filter-item active ${classActive && "active"} `}
+          className={`filter-item ${classActive === "All" && "active"} `}
           onClick={handleClick}
         >
           All
         </li>
         <li
-          className={`filter-item ${classActive && "active"} `}
+          className={`filter-item ${classActive === "Active" && "active"} `}
           onClick={handleClick}
         >
           Active
         </li>
         <li
-          className={`filter-item ${classActive && "active"} `}
+          className={`filter-item ${classActive === "Completed" && "active"} `}
           onClick={handleClick}
         >
           Completed
