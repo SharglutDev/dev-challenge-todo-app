@@ -1,33 +1,40 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "./App.css";
 import "./index.css";
-import Filters from "./Filters";
-import Header from "./Header";
-import Input from "./Input";
-import Todos from "./Todos";
-
-export interface TodoType {
-  description: string;
-  isCompleted: boolean;
-}
+import Filters from "./components/Filters";
+import Header from "./components/Header";
+import TodoForm from "./components/TodoForm";
+import Todos from "./components/Todos";
 
 function App() {
-  const [todos, setTodos] = useState<TodoType[]>([]);
+  const [allTodos, setAllTodos] = useState<string[]>([]);
+  const [activeTodos, setActiveTodos] = useState<string[]>([]);
+  const [completedTodos, setCompletedTodos] = useState<string[]>([]);
   const [task, setTask] = useState<string>("");
-  const [classActive, setClassActive] = useState<string>("All");
-  const [checked, toggleChecked] = useState<boolean>(false);
+  const [filter, setFilter] = useState<string>("All");
+  // const [checked, toggleChecked] = useState<boolean>(false);
 
   return (
     <div className="container">
       <Header />
-      <Filters classActive={classActive} setClassActive={setClassActive} />
-      <Input task={task} setTask={setTask} todos={todos} setTodos={setTodos} />
-      <Todos
-        todos={todos}
-        checked={checked}
-        toggleChecked={toggleChecked}
-        classActive={classActive}
+      <Filters filter={filter} setFilter={setFilter} />
+      <TodoForm
+        task={task}
+        setTask={setTask}
+        allTodos={allTodos}
+        setAllTodos={setAllTodos}
+        activeTodos={activeTodos}
+        setActiveTodos={setActiveTodos}
       />
+      <Todos
+        allTodos={allTodos}
+        activeTodos={activeTodos}
+        setActiveTodos={setActiveTodos}
+        filter={filter}
+        setCompletedTodos={setCompletedTodos}
+        completedTodos={completedTodos}
+      />
+      <div></div>
     </div>
   );
 }
