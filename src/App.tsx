@@ -14,6 +14,8 @@ function App() {
   const [filter, setFilter] = useState<string>("All");
   // const [checked, toggleChecked] = useState<boolean>(false);
 
+  // TODO : repartir sur un objet Todo avec prop name et isCompleted
+
   return (
     <div className="container">
       <Header />
