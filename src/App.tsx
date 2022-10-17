@@ -5,6 +5,7 @@ import Filters from "./components/Filters";
 import Header from "./components/Header";
 import TodoForm from "./components/TodoForm";
 import Todos from "./components/Todos";
+import { TodoType } from "./data/todo";
 
 function App() {
   const [allTodos, setAllTodos] = useState<string[]>([]);
@@ -15,6 +16,7 @@ function App() {
   // const [checked, toggleChecked] = useState<boolean>(false);
 
   // TODO : repartir sur un objet Todo avec prop name et isCompleted
+  const [todos, setTodos] = useState<TodoType[]>([]);
 
   return (
     <div className="container">
@@ -27,6 +29,8 @@ function App() {
         setAllTodos={setAllTodos}
         activeTodos={activeTodos}
         setActiveTodos={setActiveTodos}
+        todos={todos}
+        setTodos={setTodos}
       />
       <Todos
         allTodos={allTodos}
@@ -35,6 +39,8 @@ function App() {
         filter={filter}
         setCompletedTodos={setCompletedTodos}
         completedTodos={completedTodos}
+        todos={todos}
+        setTodos={setTodos}
       />
       <div></div>
     </div>

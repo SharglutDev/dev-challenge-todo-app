@@ -1,3 +1,4 @@
+import { TodoType } from "../data/todo";
 import Input from "../models/Input";
 
 interface TodoFormProps {
@@ -7,15 +8,18 @@ interface TodoFormProps {
   setAllTodos: React.Dispatch<React.SetStateAction<string[]>>;
   activeTodos: string[];
   setActiveTodos: React.Dispatch<React.SetStateAction<string[]>>;
+  todos: TodoType[];
+  setTodos: React.Dispatch<React.SetStateAction<TodoType[]>>;
 }
 
 export default function TodoForm(props: TodoFormProps) {
   const handleClick = () => {
-    // props.task.length !== 0 && props.setAllTodos([...props.allTodos, props.task]);
-    if (props.task.length > 0) {
-      props.setAllTodos([...props.allTodos, props.task]);
-      props.setActiveTodos([...props.activeTodos, props.task]);
-    }
+    let newTodo = { description: props.task, isCompleted: false };
+    props.task.length > 0 && props.setTodos([...props.todos, newTodo]);
+    // if (props.task.length > 0) {
+    //   props.setAllTodos([...props.allTodos, props.task]);
+    //   props.setActiveTodos([...props.activeTodos, props.task]);
+    // }
     props.setTask("");
   };
 
