@@ -1,36 +1,32 @@
-import React, { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
+import { ChangeEvent, Dispatch, SetStateAction } from "react";
 import { TodoType } from "../data/todo";
 import Input from "../models/Input";
 
 interface TodoProps {
-  allTodos: string[];
-  activeTodos: string[];
   filter: string;
-  completedTodos: string[];
-  setCompletedTodos: Dispatch<SetStateAction<string[]>>;
-  setActiveTodos: Dispatch<SetStateAction<string[]>>;
   todos: TodoType[];
-  setTodos: React.Dispatch<React.SetStateAction<TodoType[]>>;
+  setTodos: Dispatch<SetStateAction<TodoType[]>>;
 }
 
 const Todos = (props: TodoProps) => {
-  let filteredTodos: string[] = [...props.allTodos];
+  let filteredTodos: TodoType[] = [...props.todos];
 
   if (props.filter === "Active") {
-    filteredTodos = [...props.activeTodos];
+    filteredTodos = filteredTodos.filter((todo) => !todo.isCompleted);
   }
   if (props.filter === "Completed") {
-    filteredTodos = [...props.completedTodos];
+    filteredTodos = filteredTodos.filter((todo) => todo.isCompleted);
   }
 
   const handleCheck = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.currentTarget.checked) {
-      let currentCheckbox = [...props.todos].find(
-        (todo) => todo.description === e.currentTarget.value
-      )
-      currentCheckbox && currentCheckbox.isCompleted = true;
-    } 
-      
+    let currentCheckbox = [...props.todos].find(
+      (todo) => todo.description === e.currentTarget.value
+    );
+    currentCheckbox &&
+      (e.currentTarget.checked
+        ? (currentCheckbox.isCompleted = true)
+        : (currentCheckbox.isCompleted = false));
+
     // let updatedCompletedTodo: string[]
     // if (e.currentTarget.checked) {
     //   props.setCompletedTodos([
@@ -51,13 +47,12 @@ const Todos = (props: TodoProps) => {
     //     ...props.allTodos.filter((todo) => todo === e.currentTarget.value),
     //   ]);
     // }
-
   };
 
   return (
     <div className="todos-container">
       <ul className="todos-list">
-        {props.todos.map((todo, index) => (
+        {filteredTodos.map((todo, index) => (
           <li key={`${todo}-${index}`} className="todo-item">
             <Input
               inputType="checkbox"

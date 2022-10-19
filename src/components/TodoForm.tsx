@@ -4,10 +4,6 @@ import Input from "../models/Input";
 interface TodoFormProps {
   task: string;
   setTask: React.Dispatch<React.SetStateAction<string>>;
-  allTodos: string[];
-  setAllTodos: React.Dispatch<React.SetStateAction<string[]>>;
-  activeTodos: string[];
-  setActiveTodos: React.Dispatch<React.SetStateAction<string[]>>;
   todos: TodoType[];
   setTodos: React.Dispatch<React.SetStateAction<TodoType[]>>;
 }

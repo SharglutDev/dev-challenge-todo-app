@@ -8,9 +8,6 @@ import Todos from "./components/Todos";
 import { TodoType } from "./data/todo";
 
 function App() {
-  const [allTodos, setAllTodos] = useState<string[]>([]);
-  const [activeTodos, setActiveTodos] = useState<string[]>([]);
-  const [completedTodos, setCompletedTodos] = useState<string[]>([]);
   const [task, setTask] = useState<string>("");
   const [filter, setFilter] = useState<string>("All");
   // const [checked, toggleChecked] = useState<boolean>(false);
@@ -25,23 +22,10 @@ function App() {
       <TodoForm
         task={task}
         setTask={setTask}
-        allTodos={allTodos}
-        setAllTodos={setAllTodos}
-        activeTodos={activeTodos}
-        setActiveTodos={setActiveTodos}
         todos={todos}
         setTodos={setTodos}
       />
-      <Todos
-        allTodos={allTodos}
-        activeTodos={activeTodos}
-        setActiveTodos={setActiveTodos}
-        filter={filter}
-        setCompletedTodos={setCompletedTodos}
-        completedTodos={completedTodos}
-        todos={todos}
-        setTodos={setTodos}
-      />
+      <Todos filter={filter} todos={todos} setTodos={setTodos} />
       <div></div>
     </div>
   );
