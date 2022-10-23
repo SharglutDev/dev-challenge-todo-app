@@ -1,4 +1,6 @@
-import { ChangeEvent, Dispatch, SetStateAction } from "react";
+import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Dispatch, SetStateAction } from "react";
 import { TodoType } from "../data/todo";
 import Input from "../models/Input";
 
@@ -18,55 +20,67 @@ const Todos = (props: TodoProps) => {
     filteredTodos = filteredTodos.filter((todo) => todo.isCompleted);
   }
 
-  const handleCheck = (e: ChangeEvent<HTMLInputElement>) => {
-    let currentCheckbox = [...props.todos].find(
-      (todo) => todo.description === e.currentTarget.value
-    );
-    currentCheckbox &&
-      (e.currentTarget.checked
-        ? (currentCheckbox.isCompleted = true)
-        : (currentCheckbox.isCompleted = false));
+  const handleCheck = (id: number) => {
+    const updatedTodos = [...props.todos].map((todo) => {
+      if (todo.id === id) todo.isCompleted = !todo.isCompleted;
+      return todo;
+    });
+    props.setTodos(updatedTodos);
+  };
 
-    // let updatedCompletedTodo: string[]
-    // if (e.currentTarget.checked) {
-    //   props.setCompletedTodos([
-    //     ...props.completedTodos,
-    //     ...props.allTodos.filter((todo) => todo === e.currentTarget.value),
-    //   ]);
-    //   props.setActiveTodos(
-    //     [...props.activeTodos].filter((todo) => todo !== e.currentTarget.value)
-    //   );
-    // } else {
-    //   props.setCompletedTodos(
-    //     [...props.completedTodos].filter(
-    //       (todo) => todo !== e.currentTarget.value
-    //     )
-    //   );
-    //   props.setActiveTodos([
-    //     ...props.activeTodos,
-    //     ...props.allTodos.filter((todo) => todo === e.currentTarget.value),
-    //   ]);
-    // }
+  const handleDeleteTodo = (id: number) => {
+    const updatedTodos = [...props.todos].filter((todo) => todo.id !== id);
+
+    props.setTodos(updatedTodos);
+  };
+
+  const handleDeleteAll = () => {
+    const updatedTodos = [...props.todos].filter((todo) => !todo.isCompleted);
+
+    props.setTodos(updatedTodos);
   };
 
   return (
     <div className="todos-container">
       <ul className="todos-list">
-        {filteredTodos.map((todo, index) => (
-          <li key={`${todo}-${index}`} className="todo-item">
-            <Input
-              inputType="checkbox"
-              inputName="todo"
-              className="todo-input"
-              value={todo.description}
-              checked={todo.isCompleted}
-              handleChange={handleCheck}
-            />
-            <label className="todo-description" htmlFor="todo">
-              {todo.description}
-            </label>
+        {filteredTodos.map((todo) => (
+          <li key={todo.id} className="todo-item">
+            <div className="todo-content">
+              <Input
+                inputType="checkbox"
+                inputName="todo"
+                className="todo-input"
+                value={todo.description}
+                checked={todo.isCompleted}
+                handleChange={() => handleCheck(todo.id)}
+              />
+              <label
+                className={`todo-description ${
+                  todo.isCompleted && `todo-done`
+                }`}
+                htmlFor="todo"
+              >
+                {todo.description}
+              </label>
+            </div>
+            {props.filter === "Completed" && (
+              <FontAwesomeIcon
+                icon={faTrashCan}
+                style={{ color: "grey", padding: "0 10px", cursor: "pointer" }}
+                onClick={() => handleDeleteTodo(todo.id)}
+              />
+            )}
           </li>
         ))}
+        {props.filter === "Completed" && (
+          <button className="btn-delete" onClick={handleDeleteAll}>
+            <FontAwesomeIcon
+              icon={faTrashCan}
+              style={{ color: "white", paddingRight: "6px" }}
+            />
+            delete all
+          </button>
+        )}
       </ul>
     </div>
   );

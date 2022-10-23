@@ -10,12 +10,13 @@ interface TodoFormProps {
 
 export default function TodoForm(props: TodoFormProps) {
   const handleClick = () => {
-    let newTodo = { description: props.task, isCompleted: false };
+    const newTodo = {
+      id: new Date().getTime(),
+      description: props.task,
+      isCompleted: false,
+    };
+
     props.task.length > 0 && props.setTodos([...props.todos, newTodo]);
-    // if (props.task.length > 0) {
-    //   props.setAllTodos([...props.allTodos, props.task]);
-    //   props.setActiveTodos([...props.activeTodos, props.task]);
-    // }
     props.setTask("");
   };
 
